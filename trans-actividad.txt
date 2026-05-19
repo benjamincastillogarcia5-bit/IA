@@ -1,0 +1,126 @@
+
+
+## Actividad 1: La matriz de atención
+
+### Enunciado
+
+Frase de estudio: **EL | GATO | COME | PESCADO**
+
+Desde la perspectiva de la palabra **COME**, puntuamos del 0 al 10 cuánto "importa" cada elemento de la oración para entender el verbo (10 = importancia máxima).
+
+#### Paso 1: Fila de puntuación (Perspectiva de "COME")
+
+|  | EL | GATO | COME | PESCADO |
+| --- | --- | --- | --- | --- |
+| **Desde COME →** | 2 | 9 | 5 | 9 |
+
+#### Paso 2: Convertir a porcentajes (Mini-Softmax)
+
+* **Suma total de puntuaciones:** $2 + 9 + 5 + 9 = 25$
+* **Operación:** $(\text{Puntuación} \div 25) \times 100$
+
+| Palabra | Puntuación | ÷ Suma | × 100 ≈ % |
+| --- | --- | --- | --- |
+| **EL** | 2 | 0.08 | **8%** |
+| **GATO** | 9 | 0.36 | **36%** |
+| **COME** | 5 | 0.20 | **20%** |
+| **PESCADO** | 9 | 0.36 | **36%** |
+| **Total** | **25** | - | **100%** |
+
+### Paso 3: Interpretación y Cierre
+
+* **¿A quién le diste más atención? ¿Tiene sentido para el verbo "come"?** *Principalmente a "GATO" (36%) y "PESCADO" (36%). Tiene total lógica, ya que el verbo "come" necesita conectar con el sujeto que realiza la acción y el objeto que se está comiendo para que la frase tenga sentido.*
+* **Si fueras la palabra PESCADO, ¿crees que tu fila de porcentajes sería igual? ¿Por qué sí o por no?** *Seguramente no. Las relaciones de atención en este modelo no son simétricas. Aunque "PESCADO" se fijaría bastante en "COME", su distribución de porcentajes sería distinta porque su función gramatical y el contexto que necesita evaluar son diferentes a los del verbo.*
+
+---
+
+## Actividad 2: La palabra ambigua (dos contextos)
+
+Demostración de cómo la palabra **BANCO** reasigna sus pesos de atención según los vectores de sus palabras vecinas.
+
+### Frase A: FUIMOS AL BANCO DEL RIO
+
+* **Suma de puntuaciones:** $2 + 1 + 4 + 5 + 13 = 25$
+
+| Palabra | FUIMOS | AL | BANCO | DEL | RIO | Total |
+| --- | --- | --- | --- | --- | --- | --- |
+| **Puntuación** | 2 | 1 | 4 | 5 | 13 | **25** |
+| **Porcentaje** | 8% | 4% | 16% | 20% | **52%** | **100%** |
+
+### Frase B: FUIMOS AL BANCO A SACAR DINERO
+
+* **Suma de puntuaciones:** $1 + 1 + 3 + 2 + 8 + 10 = 25$
+
+| Palabra | FUIMOS | AL | BANCO | A | SACAR | DINERO | Total |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| **Puntuación** | 1 | 1 | 3 | 2 | 8 | 10 | **25** |
+| **Porcentaje** | 4% | 4% | 12% | 8% | **32%** | **40%** | **100%** |
+
+### Preguntas de análisis
+
+1. **¿En cuál frase BANCO le da más puntos a “RIO” / “DEL”?** En la Frase A (72% combinado).
+2. **¿En cuál le da más a “DINERO” / “SACAR”?** En la Frase B (72% combinado).
+3. **Conclusión en 3 líneas:** *El ejercicio prueba que los Transformers no leen palabras aisladas con definiciones fijas en un diccionario. La palabra "BANCO" ajusta su propio significado matemático tomando el contexto de las palabras que la rodean, logrando distinguir si se habla de un cuerpo de agua o de una institución financiera.*
+
+---
+
+## Actividad 3: Máscara causal (no hacer trampa)
+
+### Matriz de Atención Causal (4×4)
+
+Representa qué palabras del pasado y presente puede inspeccionar el modelo para generar secuencialmente la frase: **EL GATO COME PESCADO**.
+
+| Palabra actual | EL | GATO | COME | PESCADO |
+| --- | --- | --- | --- | --- |
+| **1º EL** | ✓ | ✗ | ✗ | ✗ |
+| **2º GATO** | ✓ | ✓ | ✗ | ✗ |
+| **3º COME** | ✓ | ✓ | ✓ | ✗ |
+| **4º PESCADO** | ✓ | ✓ | ✓ | ✓ |
+
+### Preguntas de análisis
+
+* **¿Cuántos ✓ hay en la fila de la última palabra (PESCADO)?** *Tiene los cuatro ✓. Al ser la palabra final de la oración, tiene acceso completo a todas las palabras que ya fueron generadas en el proceso.*
+* **¿Cuántos ✓ hay en la fila de la primera palabra (EL)?** *Solo tiene un ✓. Como es la palabra con la que arranca la frase, no hay ningún historial previo al que pueda voltear a ver.*
+* **¿Por qué la máscara causal (forma de triángulo inferior) es necesaria para escribir texto?** *Sin esta restricción, el modelo simplemente haría trampa viendo la respuesta que tiene que predecir durante su fase de entrenamiento. La máscara lo obliga a aprender a deducir la siguiente palabra basándose estrictamente en el contexto anterior.*
+
+---
+
+## Actividad 4: Varias cabezas (varios criterios)
+
+Frase de estudio: **MARIA | NO | COMIO | PORQUE | ESTABA | ENFERMA**
+
+Cada "Cabeza de Atención" evalúa de manera independiente la fila del verbo **COMIO** bajo un filtro exclusivo.
+
+#### Cabeza A - Criterio: ¿Quién explica el porqué? (Causa)
+
+* Suma: $1 + 1 + 2 + 6 + 4 + 11 = 25$
+* **Porcentajes:** MARIA (4%) | NO (4%) | COMIO (8%) | **PORQUE (24%)** | ESTABA (16%) | **ENFERMA (44%)**
+
+#### Cabeza B - Criterio: ¿Quién es el sujeto de la acción?
+
+* Suma: $12 + 4 + 3 + 1 + 0 + 0 = 20$
+* **Porcentajes:** **MARIA (60%)** | NO (20%) | COMIO (15%) | PORQUE (5%) | ESTABA (0%) | ENFERMA (0%)
+
+#### Cabeza C - Criterio: ¿Quién está junto al verbo? (Vecinos inmediatos)
+
+* Suma: $0 + 9 + 2 + 9 + 0 + 0 = 20$
+* **Porcentajes:** MARIA (0%) | **NO (45%)** | COMIO (10%) | **PORQUE (45%)** | ESTABA (0%) | ENFERMA (0%)
+
+### Preguntas de análisis
+
+* **¿Las tres filas son iguales?** *Definitivamente no. Cada cabeza presta atención a aspectos distintos dependiendo de la tarea que se le asignó.*
+* **¿Qué ventaja tiene ver la frase desde tres criterios y no solo uno?** *Permite que el modelo analice la oración desde varios ángulos a la vez. Mientras una parte de la red se fija en quién hace la acción, otra busca la causa y otra revisa la sintaxis cercana. Esto le otorga al modelo una comprensión del lenguaje mucho más profunda.*
+
+---
+
+## Actividad 5: Encoder vs Decoder (role-play)
+
+### Resumen de la Dinámica en Clase
+
+El **Encoder** es el sistema que procesa toda una frase de golpe, extrayendo su significado y convirtiéndola en representaciones matemáticas. El **Decoder** agarra esa información procesada y va construyendo el texto de salida paso a paso, fijándose en lo que le manda el Encoder y en lo que él mismo ya escribió.
+
+### Debrief (Preguntas para el Plenario)
+
+1. **¿Qué fue más fácil: leer todo (Encoder) o escribir de a poco (Decoder)?** *Resulta más fácil ser el Encoder, ya que puedes procesar todo el texto de una vez y extraer el contexto general rápidamente. Actuar como Decoder requiere más esfuerzo porque tienes que ir construyendo el mensaje en orden, asegurándote de que todo conecte bien con lo anterior.*
+2. **¿En qué momento el Decoder “necesitó” mirar atrás?** *El Decoder tuvo que revisar el historial constantemente al agregar nuevas palabras, especialmente para asegurarse de que hubiera concordancia de género, número o tiempo verbal con las palabras previas.*
+3. **¿Cómo se relaciona esto con traducir o con un chatbot?** *Es exactamente la misma arquitectura. En un chatbot, el Encoder "lee" todo tu prompt de una sola vez para entender la intención. Después, el Decoder toma esa representación y empieza a redactar la respuesta secuencialmente, mostrándote en pantalla palabra por palabra hasta finalizar la idea.*
