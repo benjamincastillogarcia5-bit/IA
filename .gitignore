@@ -1,0 +1,59 @@
+# ==========================================
+# REGLAS GLOBALES (Aplica a todo el proyecto)
+# ==========================================
+# Entornos virtuales (¡NUNCA se suben a Git!)
+.venv/
+venv/
+env/
+
+# Caché y compilados de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Dependencias de Node.js (Frontend / JS)
+node_modules/
+package-lock.json
+yarn.lock
+npm-debug.log
+
+# ==========================================
+# PROYECTO 1: Juego
+# ==========================================
+# Ignorar todo en esta carpeta excepto los archivos de código Python (.py)
+/Proyecto 1 juego/*
+!/Proyecto 1 juego/*.py
+
+# ==========================================
+# PROYECTO 2: CNN
+# ==========================================
+# Ignorar todo (incluyendo datasets, videos, el modelo .h5 y scripts extra)
+# excepto el Jupyter Notebook principal (.ipynb)
+/Proyecto 2 CNN/*
+!/Proyecto 2 CNN/*.ipynb
+
+# ==========================================
+# PROYECTO 3: RNN
+# ==========================================
+# Mantenemos app.py, entorno_virtual.md y el código de la carpeta rnn-autocompleter.
+# Ignoramos el modelo ya entrenado y archivos generados por C.
+/Proyecto 3 RNN/rnn_model.keras
+/Proyecto 3 RNN/dataset.c
+
+# ==========================================
+# PROYECTO 4: FineTunning
+# ==========================================
+# Conservamos solo lo indispensable para el portafolio: 'rag_local.py' y 'Modelfile'.
+# Git/GitHub tiene un límite de 100MB por archivo, por lo que el modelo GGUF (de 2GB) 
+# y los datasets pesados deben quedarse estrictamente en local.
+/Proyecto 4 FineTunning/*.gguf
+/Proyecto 4 FineTunning/*.jsonl
+/Proyecto 4 FineTunning/corpus/
+/Proyecto 4 FineTunning/rag_db_violencia/
+
+# ==========================================
+# OTRAS CARPETAS (IA2026)
+# ==========================================
+# Si la carpeta IA2026 no contiene código que quieras en tu portafolio:
+/IA2026/
