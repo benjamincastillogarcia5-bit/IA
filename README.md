@@ -1,27 +1,38 @@
-Portafolio de Evidencias: Inteligencia Artificial
-Este repositorio reúne los proyectos prácticos desarrollados a lo largo del curso, abarcando desde la implementación de algoritmos de aprendizaje de máquina tradicionales hasta el ajuste de Modelos de Lenguaje de Gran Escala (LLMs).
+# 📑 Portafolio de Evidencias | Inteligencia Artificial
 
-📑 Índice de Proyectos
-Proyecto 1: Aprendizaje Basado en Reglas y Redes Neuronales en Videojuegos
+¡Bienvenido a mi portafolio de evidencias! Este repositorio reúne los proyectos prácticos clave desarrollados durante el curso, abarcando desde el entrenamiento de redes neuronales desde cero hasta la implementación de arquitecturas avanzadas con Modelos de Lenguaje de Gran Escala (LLMs).
 
-Descripción: Desarrollo de un entorno interactivo utilizando Pygame donde se recolectan datos de juego para entrenar un Perceptrón Multicapa (MLP). El agente aprende a tomar decisiones en tiempo real basándose en las variables del entorno.
+---
 
-Componentes clave: Script de ejecución principal (juego_pygame_P.py).
 
-Proyecto 2: Clasificación de Imágenes mediante Redes Neuronales Convolucionales (CNN)
+## Índice de Proyectos
 
-Descripción: Diseño, entrenamiento y evaluación de una arquitectura CNN utilizando PyTorch para la clasificación de imágenes (reconocimiento de animales). Incluye el pipeline completo de preprocesamiento, aumentación de datos y análisis de curvas de aprendizaje.
+A continuación se detallan los proyectos incluidos. Haz clic en el título de cualquiera de ellos para navegar directamente a su respectiva carpeta de código:
 
-Componentes clave: Notebook principal de experimentación (CNN_Animales_PyTorch_Final.ipynb) y script de preparación de datos (crear_dataset.py).
+### [Proyecto 1: Aprendizaje Basado en Reglas y Redes Neuronales](./Proyecto%201%20juego/)
+> **Enfoque:** Recolección de datos en tiempo real y entrenamiento de un Perceptrón Multicapa (MLP).
+*   **Descripción:** Desarrollo de un entorno interactivo en `Pygame` que actúa como simulador para recolectar métricas de juego. Posteriormente, los datos son estructurados para entrenar un agente capaz de tomar decisiones autónomas basadas en las variables del entorno.
+*   **Archivos de código destacados:**
+    *   `juego_pygame_P.py` — Código principal de la lógica del juego y el agente.
 
-Proyecto 3: Predicción de Secuencias con Redes Neuronales Recurrentes (RNN)
+### [Proyecto 2: Clasificación de Imágenes mediante CNN](./Proyecto%202%20CNN/)
+> **Enfoque:** Diseño y evaluación de Redes Neuronales Convolucionales.
+*   **Descripción:** Pipeline completo de Visión por Computadora utilizando `PyTorch` enfocado en el reconocimiento y clasificación de distintas especies de animales. Incluye aumentación de datos, manejo de batches y análisis de curvas de entrenamiento.
+*   **Archivos de código destacados:**
+    *   `CNN_Animales_PyTorch_Final.ipynb` — Notebook principal con los experimentos, capas y gráficas.
+    *   `crear_dataset.py` — Script automatizado para la estructuración y limpieza de las imágenes.
 
-Descripción: Implementación de un modelo enfocado en el procesamiento de secuencias y autocompletado de texto. Incluye el despliegue de una interfaz o API local para interactuar con las predicciones del modelo en tiempo real.
+### [Proyecto 3: Predicción de Secuencias con RNN](./Proyecto%203%20RNN/)
+> **Enfoque:** Procesamiento de Lenguaje Natural (NLP) y autocompletado.
+*   **Descripción:** Implementación de una Red Neuronal Recurrente orientada a predecir secuencias de texto. El proyecto incluye la integración de un módulo especializado en autocompletado y una interfaz local lista para producción.
+*   **Archivos de código destacados:**
+    *   `app.py` — Servidor de ejecución e interfaz del modelo.
+    *   `rnn-autocompleter/` — Módulo dedicado al procesamiento secuencial de la arquitectura.
 
-Componentes clave: Lógica del servidor/aplicación (app.py) y el módulo de autocompletado (rnn-autocompleter/).
+### [Proyecto 4: Arquitectura RAG Local y Fine-Tuning](./Proyecto%204%20FineTunning/)
+> **Enfoque:** Generación Aumentada por Recuperación y Modelos de Lenguaje.
+*   **Descripción:** Construcción de un sistema RAG (Retrieval-Augmented Generation) completamente offline. Utiliza el modelo cuantizado `Llama-3.2-3B` inyectándole contexto específico a través de una base de datos vectorial especializada.
+*   **Archivos de código destacados:**
+    *   `rag_local.py` — Pipeline de extracción de contexto e inferencia.
+    *   `Modelfile` — Configuración de hiperparámetros y prompts del sistema para `Ollama`.
 
-Proyecto 4: Arquitectura RAG Local y Ajuste Fino (Fine-Tuning)
-
-Descripción: Configuración de un sistema de Generación Aumentada por Recuperación (RAG) a nivel local utilizando un modelo cuantizado Llama-3.2-3B. El sistema está diseñado para contextualizar las respuestas del LLM a partir de un corpus de texto específico almacenado en una base de datos vectorial.
-
-Componentes clave: Pipeline de recuperación y generación (rag_local.py) y archivo de configuración del modelo para Ollama (Modelfile).
