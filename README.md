@@ -1,6 +1,7 @@
 # 📑 Portafolio de Evidencias | Inteligencia Artificial
 
-¡Bienvenido a mi portafolio de evidencias! Este repositorio reúne los proyectos prácticos clave desarrollados durante el curso, abarcando desde el entrenamiento de redes neuronales desde cero hasta la implementación de arquitecturas avanzadas con Modelos de Lenguaje de Gran Escala (LLMs).
+
+## Buenas tardes / noches Maestro a continuación le muestro presento los 4 proyectos grandes que se desarrollaron
 
 ---
 
